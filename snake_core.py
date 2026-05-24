@@ -87,13 +87,3 @@ class Snake:
             self.body.pop()
 
         self.steps += 1
-
-
-if __name__ == "__main__":
-    random.seed(0)
-    snake = Snake(10, 10)
-    print("start body:", snake.body)
-    print("food:", snake.food)
-    for i in range(5):
-        snake.step()
-        print("step", i + 1, "body:", snake.body, "alive:", snake.alive)

@@ -116,22 +116,3 @@ def astar_bot(snake):
     dy = next_cell[1] - head[1]
     return (dx, dy)
 
-
-STRATEGIES = {
-    "random": random_bot,
-    "greedy": greedy_bot,
-    "astar": astar_bot,
-}
-
-
-if __name__ == "__main__":
-    from snake_core import Snake
-
-    for name in STRATEGIES:
-        bot_function = STRATEGIES[name]
-        random.seed(42)
-        snake = Snake(20, 15)
-        while snake.alive and snake.steps < 5000:
-            direction = bot_function(snake)
-            snake.step(direction)
-        print(name, "-> length:", snake.get_score(), "steps:", snake.steps)

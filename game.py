@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from snake_core import Snake, UP, DOWN, LEFT, RIGHT
-from bot import STRATEGIES
+from bot import random_bot, greedy_bot, astar_bot
 
 WIDTH = 20
 HEIGHT = 15
@@ -79,11 +79,15 @@ def get_bot_function():
     if len(sys.argv) < 2:
         return None
     name = sys.argv[1]
-    if name not in STRATEGIES:
-        print("Неизвестная стратегия:", name)
-        print("Можно выбрать только random, greedy, astar или без аргумента, чтобы сыграть самому")
-        sys.exit(1)
-    return STRATEGIES[name]
+    if name == "random":
+        return random_bot
+    if name == "greedy":
+        return greedy_bot
+    if name == "astar":
+        return astar_bot
+    print("Неизвестная стратегия:", name)
+    print("Можно выбрать только random, greedy, astar или без аргумента, чтобы сыграть самому")
+    sys.exit(1)
 
 
 def main():

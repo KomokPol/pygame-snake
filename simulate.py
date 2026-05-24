@@ -3,7 +3,7 @@ import os
 import random
 
 from snake_core import Snake
-from bot import STRATEGIES
+from bot import random_bot, greedy_bot, astar_bot
 
 RESULTS_DIR = "results"
 
@@ -33,7 +33,7 @@ def experiment_size():
     print("Эксперимент 1: влияние размера поля на жадного бота")
     sizes = [10, 20, 30, 40, 50]
     runs_per_size = 100
-    bot_function = STRATEGIES["greedy"]
+    bot_function = greedy_bot
     rows = []
 
     for size in sizes:
@@ -55,7 +55,7 @@ def experiment_histogram():
     print()
     print("Эксперимент 2: распределение финальной длины жадного бота (поле 20x15)")
     runs = 500
-    bot_function = STRATEGIES["greedy"]
+    bot_function = greedy_bot
     rows = []
 
     for run_id in range(1, runs + 1):
@@ -74,7 +74,7 @@ def experiment_histogram_astar():
     print()
     print("Эксперимент 2b: распределение финальной длины бота A* (поле 20x15)")
     runs = 500
-    bot_function = STRATEGIES["astar"]
+    bot_function = astar_bot
     rows = []
 
     for run_id in range(1, runs + 1):
@@ -92,12 +92,15 @@ def experiment_histogram_astar():
 def experiment_strategies():
     print()
     print("Эксперимент 3: сравнение стратегий (поле 20x15)")
-    strategy_names = ["random", "greedy", "astar"]
+    strategies = [
+        ("random", random_bot),
+        ("greedy", greedy_bot),
+        ("astar", astar_bot),
+    ]
     runs_per_strategy = 200
     rows = []
 
-    for name in strategy_names:
-        bot_function = STRATEGIES[name]
+    for name, bot_function in strategies:
         print(name + "...", end=" ", flush=True)
         for run_id in range(1, runs_per_strategy + 1):
             seed = 20000 + run_id
